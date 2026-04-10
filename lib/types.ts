@@ -6,6 +6,7 @@ export type PricePoint = {
 export type HoldingPoint = {
   date: string;
   holdings: number;
+  source?: string;
 };
 
 export type IndicatorPoint = {
@@ -34,5 +35,10 @@ export type IndicatorPayload = {
     min30dPremium: number | null;
     max30dPremium: number | null;
   };
+  priceRefreshSeconds: number;
+  holdingsRefreshSeconds: number;
+  holdingsSource: string;
+  holdingsMode: 'live+seed-fallback' | 'seed-only';
+  latestHoldingsDate: string;
   points: IndicatorPoint[];
 };

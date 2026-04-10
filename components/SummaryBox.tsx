@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export function SummaryBox() {
+export function SummaryBox({ refreshSeconds = 300 }: { refreshSeconds?: number }) {
   const [summary, setSummary] = useState<string>('Generating summary...');
   const [source, setSource] = useState<string>('');
 
@@ -25,10 +25,13 @@ export function SummaryBox() {
     }
 
     run();
+    const intervalId = window.setInterval(run, refreshSeconds * 1000);
+
     return () => {
       cancelled = true;
+      window.clearInterval(intervalId);
     };
-  }, []);
+  }, [refreshSeconds]);
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-5">

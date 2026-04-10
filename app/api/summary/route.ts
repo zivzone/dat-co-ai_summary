@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getIndicatorPayload } from '@/lib/indicator';
 
+export const dynamic = 'force-dynamic';
+
 function fallbackSummary(payload: Awaited<ReturnType<typeof getIndicatorPayload>>) {
   const latest = payload.latest;
   const stats = payload.summaryStats;
@@ -29,19 +31,7 @@ export async function POST(request: NextRequest) {
     const userInput = await request.json().catch(() => ({}));
     const lookback = userInput.lookbackDays ?? 30;
 
-    const prompt = `You are a financial data assistant. Write a concise 3-4 sentence summary of Strategy's Premium to NAV trend.
-Data:
-- Latest premium to NAV: ${latest.premiumToNav}%
-- Latest mNAV: ${latest.mnav}x
-- Latest BTC price: ${latest.btcPrice}
-- Latest MSTR price: ${latest.mstrPrice}
-- 7-day premium change: ${stats.change7d}
-- 30-day premium change: ${stats.change30d}
-- 30-day average premium: ${stats.avg30dPremium}
-- 30-day min premium: ${stats.min30dPremium}
-- 30-day max premium: ${stats.max30dPremium}
-- Lookback requested: ${lookback} days
-Rules: no financial advice, mention whether premium is expanding or contracting, explain what it may reflect.`;
+    const prompt = `You are a financial data assistant. Write a concise 3-4 sentence summary of Strategy's Premium to NAV trend.\nData:\n- Latest premium to NAV: ${latest.premiumToNav}%\n- Latest mNAV: ${latest.mnav}x\n- Latest BTC price: ${latest.btcPrice}\n- Latest MSTR price: ${latest.mstrPrice}\n- 7-day premium change: ${stats.change7d}\n- 30-day premium change: ${stats.change30d}\n- 30-day average premium: ${stats.avg30dPremium}\n- 30-day min premium: ${stats.min30dPremium}\n- 30-day max premium: ${stats.max30dPremium}\n- Holdings source mode: ${payload.holdingsMode}\n- Holdings source: ${payload.holdingsSource}\n- Lookback requested: ${lookback} days\nRules: no financial advice, mention whether premium is expanding or contracting, explain what it may reflect.`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',

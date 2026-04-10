@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 import { getIndicatorPayload } from '@/lib/indicator';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const payload = await getIndicatorPayload();
     return NextResponse.json(payload, {
       headers: {
-        'Cache-Control': 's-maxage=21600, stale-while-revalidate=86400',
+        'Cache-Control': 's-maxage=300, stale-while-revalidate=300',
       },
     });
   } catch (error) {
