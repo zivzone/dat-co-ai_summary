@@ -71,7 +71,7 @@ export function DashboardClient({ initialPayload }: { initialPayload: IndicatorP
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="mb-3 inline-flex rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">
-              DAT.co Assignment Demo
+              HW2.Robo-Advisor: DAT.co Indicator Monitor Demo, developed by D14922034 鍾嘉峻
             </div>
             <h1 className="text-4xl font-semibold tracking-tight">{payload.companyName} Premium to NAV Monitor</h1>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
@@ -138,8 +138,8 @@ export function DashboardClient({ initialPayload }: { initialPayload: IndicatorP
             <li>• BTC and MSTR are re-fetched from Yahoo Finance server-side with a 300-second cache window.</li>
             <li>• The page also polls the indicator API every 5 minutes while the browser tab is open.</li>
             <li>• Strategy holdings are checked against the official purchases/history pages every 5 minutes, then merged with the seeded historical series.</li>
-            <li>• On Vercel Hobby, true background cron execution every 5 minutes is not available, so updates occur on request rather than via always-on workers.</li>
-            <li>• The AI summary works without an API key using a rule-based fallback, and upgrades automatically if OPENAI_API_KEY is set.</li>
+            <li>• On Vercel Hobby, true background cron execution every 5 minutes is not available, so updates occur on request rather than via always-on workers. I have implemented this code for updating every 5 min, so if uses Vercel Pro, it can update every 5 min.</li>
+            <li>• The AI summary works without an API key using a rule-based fallback, and upgrades automatically if OPENAI_API_KEY is set. In this demo, OPENAI is used</li>
           </ul>
         </section>
       </div>
